@@ -143,6 +143,7 @@ function getIcon(weatherDescription) {
     if (weatherDescription in weatherIcons) {
         return weatherIcons[weatherDescription];
     }
+    else return "";
 }
 
 // °C - °F
