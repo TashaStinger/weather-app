@@ -1,4 +1,4 @@
-function formatDay(index) {
+function formatDay(index) {     
   let days = [
     "Sunday",
     "Monday",
@@ -69,12 +69,13 @@ function showWeather(response) {
   currentTemperature.fahrenheit = Math.round(currentTemperature.celsius * 1.8 + 32);
 
   document.querySelector("#current-city").innerHTML = response.data.name;
-  document.querySelector("#cur-temp").innerHTML = currentTemperature.celsius;
+  document.querySelector("#current-temperature").innerHTML = currentTemperature.celsius;
   document.querySelector("#weather-description").innerHTML = response.data.weather[0].description;
   document.querySelector("#humidity").innerHTML = `humidity - ${response.data.main.humidity}%`;
   document.querySelector("#wind").innerHTML = `wind - ${response.data.wind.speed} m/s`;
-  activateCelsiusDegrees();
   document.querySelector("#current-icon").innerHTML = getIcon(response.data.weather[0].main);
+  
+  activateCelsiusDegrees();
 }
 
 function createPositionApiUrl(position) {
@@ -85,13 +86,13 @@ function createPositionApiUrl(position) {
   showDate();
 }
 
+function getWeather(apiUrl) {
+    axios.get(apiUrl).then(showWeather);
+}
+
 function weatherByPosition(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(createPositionApiUrl);
-}
-
-function getWeather(apiUrl) {
-    axios.get(apiUrl).then(showWeather);
 }
 
 function weatherByCity(event) {
@@ -100,7 +101,6 @@ function weatherByCity(event) {
   let city = newCity.value.trim();
   if (city) {
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
-    // axios.get(apiUrl).then(showWeather);
     getWeather(apiUrl);
   } else {
     alert("Enter a city!");
@@ -111,13 +111,13 @@ function weatherByCity(event) {
 
 function showTempF(event) {
   event.preventDefault();
-  document.querySelector("#cur-temp").innerHTML = currentTemperature.fahrenheit;
+  document.querySelector("#current-temperature").innerHTML = currentTemperature.fahrenheit;
   activateFahrenhateDegrees();
 }
 
 function showTempC(event) {
   event.preventDefault();
-  document.querySelector("#cur-temp").innerHTML = currentTemperature.celsius;
+  document.querySelector("#current-temperature").innerHTML = currentTemperature.celsius;
   activateCelsiusDegrees();
 }
 
@@ -139,7 +139,6 @@ function getIcon(weatherDescription) {
         Squall: '<i class="fa-solid fa-wind"></i>',
         Tornado: '<i class="fa-solid fa-tornado"></i>'   
     }
-
     if (weatherDescription in weatherIcons) {
         return weatherIcons[weatherDescription];
     }

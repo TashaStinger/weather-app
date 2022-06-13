@@ -24,6 +24,8 @@
   <body>
     <div class="container">
       <div class="app-content">
+        <!-- Change city form -->
+
         <form>
           <div class="row">
             <div class="col-sm">
@@ -32,7 +34,7 @@
                   type="text"
                   class="form-control"
                   id="new-city"
-                  placeholder="Enter a city"
+                  placeholder="Enter a city..."
                   autofocus="on"
                   autocomplete="off"
                 />
@@ -63,6 +65,8 @@
           </div>
         </form>
 
+        <!-- Current date and weather in the current city -->
+
         <div class="current">
           <div class="row">
             <div class="col" id="current-date">Current date</div>
@@ -71,10 +75,10 @@
           <div class="row d-flex align-items-center">
             <div class="col-sm-1"></div>
             <div class="col-1"></div>
-
+            <!-- Current city with weather -->
             <div class="col-6 current-text">
               <h1 id="current-city">Loading</h1>
-              <span id="cur-temp"></span>
+              <span id="current-temperature"></span>
               <span class="degrees">
                 <a href="#" id="temp-c">°C</a> |
                 <a href="#" id="temp-f">°F</a>
@@ -85,13 +89,15 @@
                 <li id="wind"></li>
               </ul>
             </div>
-
+            <!-- Current icon -->
             <div class="col current-icon" id="current-icon">
               <!-- <i class="fa-solid fa-sun"></i> -->
             </div>
             <div class="col-sm"></div>
           </div>
         </div>
+
+        <!-- Week weather -->
 
         <div class="week">
           <div class="row">
@@ -140,6 +146,14 @@
               27°C
             </div>
           </div>
+        </div>
+
+        <!-- Footer -->
+
+        <div class="footer">
+          <a href="https://github.com/TashaStinger/weather-app" target="_blank"
+            >Open-source code</a
+          >, by Natalia Chaplia
         </div>
       </div>
     </div>

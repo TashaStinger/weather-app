@@ -117,6 +117,22 @@ body {
 
 .week-icon {
     font-size: 24px;
-    margin: 0px auto 5px;
+    margin: 0px auto 4px;
     color: #005689;
+}
+
+/* ----- Footer ----- */
+
+.footer {
+    text-align: center;
+    padding-top: 24px;
+    font-size: 12px;
+}
+
+.footer a {
+    color:#005689;
+}
+
+.footer a:hover {
+    color: #1a8dc6;
 }
