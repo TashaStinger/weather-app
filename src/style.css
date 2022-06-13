@@ -3,10 +3,6 @@ body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* h2 {
-  font-size: 50px;
-} */
-
 .app-content {
     max-width: 600px;
     min-width: 250px;
@@ -17,6 +13,8 @@ body {
     padding: 24px;
 }
 
+/* ----- Buttons ----- */
+
 .search-button {
     width: 100%;
     color: white;
@@ -25,12 +23,12 @@ body {
     border: 1px solid #005689;
 }
 
-.search-button:hover {
+.search-button:hover, .search-button:active, .search-button:focus{
     color: #005689;
     background: #d5eeff;
 }
 
-.current-button {
+/* .current-button {
     width: 100%;
     font-weight: bold;
     border: 1px solid #005689;
@@ -38,9 +36,16 @@ body {
     background: #d5eeff;
 }
 
-.current-button:hover {
+.current-button:hover, .current-button:active, .current-button:focus {
     color: white;
     background: #005689;
+} */
+
+
+/* ----- Current city weather ----- */
+
+#current-date {
+    margin-bottom: 16px;
 }
 
 .current {
@@ -50,8 +55,8 @@ body {
 
 .current-text {
     font-size: 36px;
-    /* font-weight: bold; */
     text-align: left;
+    /* font-weight: bold; */
     /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
 }
 
@@ -60,6 +65,29 @@ body {
     font-weight: bold;
     margin-bottom: 0;
 }
+
+#weather {
+    font-size: 14px;
+    list-style: none;
+    padding: 5px 0 0;
+    color: #005689;
+    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+    font-style: italic;
+    opacity: 95%;
+    /* font-family: 'Courier New', Courier, monospace; */
+}
+
+#weather-description {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.current-icon {
+    font-size: 80px;
+    color: #005689;
+}
+
+/* ----- Degrees ----- */
 
 .degrees {
     vertical-align: super;
@@ -80,10 +108,7 @@ body {
     font-size: larger;
 }
 
-.current-icon {
-    font-size: 90px;
-    color: #005689;
-}
+/* ----- Week data block ----- */
 
 .week {
     text-align: center;
@@ -94,24 +119,4 @@ body {
     font-size: 24px;
     margin: 0px auto 5px;
     color: #005689;
-}
-
-#current-date {
-    margin-bottom: 16px;
-}
-
-#weather {
-    font-size: 14px;
-    list-style: none;
-    padding: 5px 0 0;
-    color: #005689;
-    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
-    font-style: italic;
-    opacity: 95%;
-    /* font-family: 'Courier New', Courier, monospace; */
-}
-
-#sky {
-    font-weight: bold;
-    text-transform: capitalize;
 }

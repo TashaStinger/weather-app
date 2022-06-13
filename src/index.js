@@ -49,14 +49,14 @@ function showDate() {
   document.querySelector("#current-date").innerHTML = sentence;
 }
 
-function celsiusDegrees() {
+function activateCelsiusDegrees() {
   document.querySelector("#temp-c").style["font-size"] = "large";
   document.querySelector("#temp-c").style["font-weight"] = "bold";
   document.querySelector("#temp-f").style["font-size"] = "small";
   document.querySelector("#temp-f").style["font-weight"] = "normal";
 }
 
-function fahrenhateDegrees() {
+function activateFahrenhateDegrees() {
   document.querySelector("#temp-f").style["font-size"] = "large";
   document.querySelector("#temp-f").style["font-weight"] = "bold";
   document.querySelector("#temp-c").style["font-size"] = "small";
@@ -70,37 +70,38 @@ function showWeather(response) {
 
   document.querySelector("#current-city").innerHTML = response.data.name;
   document.querySelector("#cur-temp").innerHTML = currentTemperature.celsius;
-  document.querySelector("#sky").innerHTML =
-    response.data.weather[0].description;
-  document.querySelector(
-    "#humidity"
-  ).innerHTML = `humidity - ${response.data.main.humidity}%`;
-  document.querySelector(
-    "#wind"
-  ).innerHTML = `wind - ${response.data.wind.speed} m/s`;
-  celsiusDegrees();
+  document.querySelector("#weather-description").innerHTML = response.data.weather[0].description;
+  document.querySelector("#humidity").innerHTML = `humidity - ${response.data.main.humidity}%`;
+  document.querySelector("#wind").innerHTML = `wind - ${response.data.wind.speed} m/s`;
+  activateCelsiusDegrees();
   document.querySelector("#current-icon").innerHTML = getIcon(response.data.weather[0].main);
 }
 
-function setPosition(position) {
+function createPositionApiUrl(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
-  // console.log(latitude, longitude);
-  let apiKey = "f7d5a287feccc9d05c7badbf5cac779d";
-  let units = "metric";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${units}&appid=${apiKey}`;
   axios.get(apiUrl).then(showWeather);
   showDate();
 }
 
-function changeCity(event) {
+function weatherByPosition(event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(createPositionApiUrl);
+}
+
+function getWeather(apiUrl) {
+    axios.get(apiUrl).then(showWeather);
+}
+
+function weatherByCity(event) {
   event.preventDefault();
   let newCity = document.querySelector("#new-city");
   let city = newCity.value.trim();
   if (city) {
-    let apiKey = "f7d5a287feccc9d05c7badbf5cac779d";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-    axios.get(apiUrl).then(showWeather);
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
+    // axios.get(apiUrl).then(showWeather);
+    getWeather(apiUrl);
   } else {
     alert("Enter a city!");
   }
@@ -111,13 +112,13 @@ function changeCity(event) {
 function showTempF(event) {
   event.preventDefault();
   document.querySelector("#cur-temp").innerHTML = currentTemperature.fahrenheit;
-  fahrenhateDegrees();
+  activateFahrenhateDegrees();
 }
 
 function showTempC(event) {
   event.preventDefault();
   document.querySelector("#cur-temp").innerHTML = currentTemperature.celsius;
-  celsiusDegrees();
+  activateCelsiusDegrees();
 }
 
 function getIcon(weatherDescription) {
@@ -151,14 +152,17 @@ let currentTemperature = {
   fahrenheit: 0
 };
 
+let apiKey = "f7d5a287feccc9d05c7badbf5cac779d";
+let defaultCity = "New York";
+let units = "metric";
+let defaultApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&units=${units}&appid=${apiKey}`;
+
 showDate();
-navigator.geolocation.getCurrentPosition(setPosition);
-document.querySelector("#search-button").addEventListener("click", changeCity);
-document.querySelector("#current-button").addEventListener("click", navigator.geolocation.getCurrentPosition(setPosition));
+getWeather(defaultApiUrl);
+// navigator.geolocation.getCurrentPosition(weatherByPosition);
+document.querySelector("#search-button").addEventListener("click", weatherByCity);
+document.querySelector("#current-button").addEventListener("click", weatherByPosition);
 
-let tempF = document.querySelector("#temp-f");
-tempF.addEventListener("click", showTempF);
-let tempC = document.querySelector("#temp-c");
-tempC.addEventListener("click", showTempC);
+document.querySelector("#temp-f").addEventListener("click", showTempF);
+document.querySelector("#temp-c").addEventListener("click", showTempC);
 
-// console.log(getIcon('Clouds'));
