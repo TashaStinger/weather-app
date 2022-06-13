@@ -79,6 +79,7 @@ function showWeather(response) {
     "#wind"
   ).innerHTML = `wind - ${response.data.wind.speed} m/s`;
   celsiusDegrees();
+  document.querySelector("#current-icon").innerHTML = getIcon(response.data.weather[0].main);
 }
 
 function setPosition(position) {
@@ -119,6 +120,30 @@ function showTempC(event) {
   celsiusDegrees();
 }
 
+function getIcon(weatherDescription) {
+    let weatherIcons = {
+        Drizzle: '<i class="fa-solid fa-cloud-rain"></i>',
+        Rain: '<i class="fa-solid fa-cloud-showers-heavy"></i>',
+        Snow: '<i class="fa-solid fa-snowflake"></i>',
+        Clear: '<i class="fa-solid fa-sun"></i>',
+        Clouds: '<i class="fa-solid fa-cloud-sun"></i>',
+
+        Smoke: '<i class="fa-solid fa-smog"></i>',
+        Haze: '<i class="fa-solid fa-smog"></i>',
+        Dust: '<i class="fa-solid fa-smog"></i>',
+        Fog: '<i class="fa-solid fa-smog"></i>',
+        Sand: '<i class="fa-solid fa-smog"></i>',
+        Ash: '<i class="fa-solid fa-smog"></i>',
+
+        Squall: '<i class="fa-solid fa-wind"></i>',
+        Tornado: '<i class="fa-solid fa-tornado"></i>'   
+    }
+
+    if (weatherDescription in weatherIcons) {
+        return weatherIcons[weatherDescription];
+    }
+}
+
 // °C - °F
 
 let currentTemperature = {
@@ -135,3 +160,5 @@ let tempF = document.querySelector("#temp-f");
 tempF.addEventListener("click", showTempF);
 let tempC = document.querySelector("#temp-c");
 tempC.addEventListener("click", showTempC);
+
+// console.log(getIcon('Clouds'));
