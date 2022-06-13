@@ -1,0 +1,117 @@
+body {
+    background: #007cb9;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* h2 {
+  font-size: 50px;
+} */
+
+.app-content {
+    max-width: 600px;
+    min-width: 250px;
+    background: white;
+    border-radius: 10px;
+    margin: 16px auto;
+    display: block;
+    padding: 24px;
+}
+
+.search-button {
+    width: 100%;
+    color: white;
+    background: #005689;
+    font-weight: bold;
+    border: 1px solid #005689;
+}
+
+.search-button:hover {
+    color: #005689;
+    background: #d5eeff;
+}
+
+.current-button {
+    width: 100%;
+    font-weight: bold;
+    border: 1px solid #005689;
+    color: #005689;
+    background: #d5eeff;
+}
+
+.current-button:hover {
+    color: white;
+    background: #005689;
+}
+
+.current {
+    margin: 16px 0 24px;
+    text-align: center;
+}
+
+.current-text {
+    font-size: 36px;
+    /* font-weight: bold; */
+    text-align: left;
+    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+}
+
+.current-text h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.degrees {
+    vertical-align: super;
+    font-size: 14px;
+}
+
+.degrees a {
+    text-decoration: none;
+    color: #005689;
+}
+
+.degrees a:hover {
+    color: #1a8dc6;
+}
+
+.degrees a:active {
+    color: #1a8dc6;
+    font-size: larger;
+}
+
+.current-icon {
+    font-size: 90px;
+    color: #005689;
+}
+
+.week {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.week-icon {
+    font-size: 24px;
+    margin: 0px auto 5px;
+    color: #005689;
+}
+
+#current-date {
+    margin-bottom: 16px;
+}
+
+#weather {
+    font-size: 14px;
+    list-style: none;
+    padding: 5px 0 0;
+    color: #005689;
+    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+    font-style: italic;
+    opacity: 95%;
+    /* font-family: 'Courier New', Courier, monospace; */
+}
+
+#sky {
+    font-weight: bold;
+    text-transform: capitalize;
+}
