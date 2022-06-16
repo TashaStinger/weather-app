@@ -89,12 +89,15 @@ function getWeekWeather (latitude, longitude) {
 }
 
 function showWeekWeather(response) {
-  console.log(response.data);
+  // console.log(response.data);
   for (var i = 1; i <= 5; i++) {
     document.querySelector(`#day-${i}-icon`).innerHTML = getIcon(response.data.daily[i].weather[0].main);;
     document.querySelector(`#day-${i}-min-temp`).innerHTML = `${Math.round(response.data.daily[i].temp.min)}°C`;
     document.querySelector(`#day-${i}-max-temp`).innerHTML = `${Math.round(response.data.daily[i].temp.max)}°C`;
-
+    weekTemperature.celsiusMin[i] = Math.round(response.data.daily[i].temp.min);
+    weekTemperature.celsiusMax[i] = Math.round(response.data.daily[i].temp.max);
+    weekTemperature.fahrenheitMin[i] = Math.round(weekTemperature.celsiusMin[i] * 1.8 + 32);
+    weekTemperature.fahrenheitMax[i] = Math.round(weekTemperature.celsiusMax[i] * 1.8 + 32);
   }
 }
 
@@ -131,12 +134,20 @@ function weatherByCity(event) {
 function showTempF(event) {
   event.preventDefault();
   document.querySelector("#current-temperature").innerHTML = currentTemperature.fahrenheit;
+  for (var i = 1; i <= 5; i++) {
+    document.querySelector(`#day-${i}-min-temp`).innerHTML = `${weekTemperature.fahrenheitMin[i]}°F`;
+    document.querySelector(`#day-${i}-max-temp`).innerHTML = `${weekTemperature.fahrenheitMax[i]}°F`;
+  }
   activateFahrenhateDegrees();
 }
 
 function showTempC(event) {
   event.preventDefault();
   document.querySelector("#current-temperature").innerHTML = currentTemperature.celsius;
+   for (var i = 1; i <= 5; i++) {
+    document.querySelector(`#day-${i}-min-temp`).innerHTML = `${weekTemperature.celsiusMin[i]}°C`;
+    document.querySelector(`#day-${i}-max-temp`).innerHTML = `${weekTemperature.celsiusMax[i]}°C`;
+  }
   activateCelsiusDegrees();
 }
 
@@ -185,6 +196,13 @@ let currentTemperature = {
   celsius: 0,
   fahrenheit: 0
 };
+
+let weekTemperature = {
+  celsiusMin: [0, 0, 0, 0, 0],
+  celsiusMax: [0, 0, 0, 0, 0],
+  fahrenheitMin: [0, 0, 0, 0, 0],
+  fahrenheitMax: [0, 0, 0, 0, 0],
+}
 
 let apiKey = "f7d5a287feccc9d05c7badbf5cac779d";
 let defaultCity = "New York";
