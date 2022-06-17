@@ -84,6 +84,7 @@ body {
 .degrees a {
     text-decoration: none;
     color: #005689;
+    transition: all 70ms ease-in-out;
 }
 
 .degrees a:hover {
