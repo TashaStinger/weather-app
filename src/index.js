@@ -1,31 +1,16 @@
 function formatDay(index) {     
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ];
+  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   return days[index];
 }
 
+function formatForecastDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[date.getDay()];
+}
+
 function formatMonth(index) {
-  let months = [
-    "Jan",
-    "Fab",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
-  ];
+  let months = ["Jan", "Fab", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   return months[index];
 }
 
@@ -47,8 +32,6 @@ function showDate() {
 
   let sentence = `${currentDay} ${currentHours}:${currentMinutes}, ${currentDate} ${currentMonth} ${currentYear}`;
   document.querySelector("#current-date").innerHTML = sentence;
-
-  showWeekDays();
 }
 
 function activateCelsiusDegrees() {
@@ -58,11 +41,39 @@ function activateCelsiusDegrees() {
   document.querySelector("#temp-f").style["font-weight"] = "normal";
 }
 
-function activateFahrenhateDegrees() {
+function activateFahrenheitDegrees() {
   document.querySelector("#temp-f").style["font-size"] = "large";
   document.querySelector("#temp-f").style["font-weight"] = "bold";
   document.querySelector("#temp-c").style["font-size"] = "small";
   document.querySelector("#temp-c").style["font-weight"] = "normal";
+}
+
+function showForecast(response) {
+  // console.log(response.data);
+  let forecast = response.data.daily;
+  let forecastHTML = `<div class="row">`;
+  forecast.forEach(function(day, index) {
+    if (index < countForecastDays) {
+      forecastHTML += `
+        <div class="col p-0">
+          <h6>${formatForecastDay(day.dt)}</h6>
+          <div class="week-icon">${getIcon(day.weather[0].main)}</div>
+          <div id="day-${index}-min-temp">${Math.round(day.temp.min)}°</div>
+          <div id="day-${index}-max-temp">${Math.round(day.temp.max)}°</div>
+        </div>`;
+      weekTemperature.celsiusMin[index] = Math.round(day.temp.min);
+      weekTemperature.celsiusMax[index] = Math.round(day.temp.max); 
+      weekTemperature.fahrenheitMin[index] = Math.round(weekTemperature.celsiusMin[index] * 1.8 + 32);
+      weekTemperature.fahrenheitMax[index] = Math.round(weekTemperature.celsiusMax[index] * 1.8 + 32);
+    }
+  })
+
+  document.querySelector("#forecast").innerHTML = forecastHTML;
+}
+
+function getForecast (latitude, longitude) {
+  let forecastApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=${units}&exclude=hourly,minutely&appid=${apiKey}`;
+  axios.get(forecastApiUrl).then(showForecast);
 }
 
 function showWeather(response) {
@@ -80,25 +91,7 @@ function showWeather(response) {
   activateCelsiusDegrees();
   showDate();
 
-  getWeekWeather(response.data.coord.lat, response.data.coord.lon);
-}
-
-function getWeekWeather (latitude, longitude) {
-  let weekApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=${units}&exclude=hourly,minutely&appid=${apiKey}`;
-  axios.get(weekApiUrl).then(showWeekWeather);
-}
-
-function showWeekWeather(response) {
-  // console.log(response.data);
-  for (var i = 1; i <= 5; i++) {
-    document.querySelector(`#day-${i}-icon`).innerHTML = getIcon(response.data.daily[i].weather[0].main);;
-    document.querySelector(`#day-${i}-min-temp`).innerHTML = `${Math.round(response.data.daily[i].temp.min)}°C`;
-    document.querySelector(`#day-${i}-max-temp`).innerHTML = `${Math.round(response.data.daily[i].temp.max)}°C`;
-    weekTemperature.celsiusMin[i] = Math.round(response.data.daily[i].temp.min);
-    weekTemperature.celsiusMax[i] = Math.round(response.data.daily[i].temp.max);
-    weekTemperature.fahrenheitMin[i] = Math.round(weekTemperature.celsiusMin[i] * 1.8 + 32);
-    weekTemperature.fahrenheitMax[i] = Math.round(weekTemperature.celsiusMax[i] * 1.8 + 32);
-  }
+  getForecast(response.data.coord.lat, response.data.coord.lon);
 }
 
 function createPositionApiUrl(position) {
@@ -134,19 +127,19 @@ function weatherByCity(event) {
 function showTempF(event) {
   event.preventDefault();
   document.querySelector("#current-temperature").innerHTML = currentTemperature.fahrenheit;
-  for (var i = 1; i <= 5; i++) {
-    document.querySelector(`#day-${i}-min-temp`).innerHTML = `${weekTemperature.fahrenheitMin[i]}°F`;
-    document.querySelector(`#day-${i}-max-temp`).innerHTML = `${weekTemperature.fahrenheitMax[i]}°F`;
+  for (var i = 0; i < countForecastDays; i++) {
+    document.querySelector(`#day-${i}-min-temp`).innerHTML = `${weekTemperature.fahrenheitMin[i]}°`;
+    document.querySelector(`#day-${i}-max-temp`).innerHTML = `${weekTemperature.fahrenheitMax[i]}°`;
   }
-  activateFahrenhateDegrees();
+  activateFahrenheitDegrees();
 }
 
 function showTempC(event) {
   event.preventDefault();
   document.querySelector("#current-temperature").innerHTML = currentTemperature.celsius;
-   for (var i = 1; i <= 5; i++) {
-    document.querySelector(`#day-${i}-min-temp`).innerHTML = `${weekTemperature.celsiusMin[i]}°C`;
-    document.querySelector(`#day-${i}-max-temp`).innerHTML = `${weekTemperature.celsiusMax[i]}°C`;
+   for (var i = 0; i < countForecastDays; i++) {
+    document.querySelector(`#day-${i}-min-temp`).innerHTML = `${weekTemperature.celsiusMin[i]}°`;
+    document.querySelector(`#day-${i}-max-temp`).innerHTML = `${weekTemperature.celsiusMax[i]}°`;
   }
   activateCelsiusDegrees();
 }
@@ -175,23 +168,6 @@ function getIcon(weatherDescription) {
     else return "";
 }
 
-function showWeekDays() {
-  let now = new Date();
-  let dayIndex = now.getDay();
-  let shortDayName = "";
-
-  for (var i = 1; i <= 5; i++) {
-    if (dayIndex < 6) {
-      dayIndex++;
-    }
-    else {
-      dayIndex = 0;
-    }
-    shortDayName = formatDay(dayIndex).substring(0,3);
-    document.querySelector(`#day-${i}`).innerHTML = shortDayName;
-  }
-}
-
 let currentTemperature = {
   celsius: 0,
   fahrenheit: 0
@@ -207,6 +183,7 @@ let weekTemperature = {
 let apiKey = "f7d5a287feccc9d05c7badbf5cac779d";
 let defaultCity = "New York";
 let units = "metric";
+let countForecastDays = 5;
 let defaultApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&units=${units}&appid=${apiKey}`;
 
 showDate();

@@ -5,7 +5,7 @@ body {
 
 .app-content {
     max-width: 600px;
-    min-width: 250px;
+    min-width: 255px;
     background: white;
     border-radius: 10px;
     margin: 16px auto;
@@ -35,7 +35,7 @@ body {
 }
 
 .current {
-    margin: 16px 0 24px;
+    margin: 16px 0 8px;
     text-align: center;
 }
 
@@ -70,7 +70,7 @@ body {
 }
 
 .current-icon {
-    font-size: 80px;
+    font-size: 72px;
     color: #005689;
 }
 
@@ -95,7 +95,7 @@ body {
     font-size: larger;
 }
 
-/* ----- Week data block ----- */
+/* ----- Forecast ----- */
 
 .week {
     text-align: center;

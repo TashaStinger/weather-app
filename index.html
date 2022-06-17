@@ -25,20 +25,17 @@
     <div class="container">
       <div class="app-content">
         <!-- Change city form -->
-
         <form>
           <div class="row">
-            <div class="col-sm">
-              <div class="mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="new-city"
-                  placeholder="Enter a city..."
-                  autofocus="on"
-                  autocomplete="off"
-                />
-              </div>
+            <div class="col-sm mb-2">
+              <input
+                type="text"
+                class="form-control"
+                id="new-city"
+                placeholder="Enter a city..."
+                autofocus="on"
+                autocomplete="off"
+              />
             </div>
             <div class="col-sm-6">
               <div class="row">
@@ -66,17 +63,17 @@
         </form>
 
         <!-- Current date and weather in the current city -->
-
         <div class="current">
           <div class="row">
-            <div class="col" id="current-date">Current date</div>
+            <div class="col" id="current-date"></div>
           </div>
 
           <div class="row d-flex align-items-center">
             <div class="col-sm-1"></div>
             <div class="col-1"></div>
+
             <!-- Current city with weather -->
-            <div class="col-6 current-text">
+            <div class="col-6 p-0 current-text">
               <h1 id="current-city">Loading</h1>
               <span id="current-temperature"></span>
               <span class="degrees">
@@ -89,57 +86,17 @@
                 <li id="wind"></li>
               </ul>
             </div>
+
             <!-- Current icon -->
-            <div class="col current-icon" id="current-icon">
-              <!-- <i class="fa-solid fa-sun"></i> -->
-            </div>
+            <div class="col p-0 current-icon" id="current-icon"></div>
             <div class="col-sm"></div>
           </div>
         </div>
 
         <!-- Week weather -->
-
-        <div class="week">
-          <div class="row">
-            <div class="col">
-              <h6 id="day-1"></h6>
-              <div id="day-1-icon" class="week-icon"></div>
-              <div id="day-1-min-temp"></div>
-              <div id="day-1-max-temp"></div>
-            </div>
-
-            <div class="col">
-              <h6 id="day-2"></h6>
-              <div id="day-2-icon" class="week-icon"></div>
-              <div id="day-2-min-temp"></div>
-              <div id="day-2-max-temp"></div>
-            </div>
-
-            <div class="col">
-              <h6 id="day-3"></h6>
-              <div id="day-3-icon" class="week-icon"></div>
-              <div id="day-3-min-temp"></div>
-              <div id="day-3-max-temp"></div>
-            </div>
-
-            <div class="col">
-              <h6 id="day-4"></h6>
-              <div id="day-4-icon" class="week-icon"></div>
-              <div id="day-4-min-temp"></div>
-              <div id="day-4-max-temp"></div>
-            </div>
-
-            <div class="col">
-              <h6 id="day-5"></h6>
-              <div id="day-5-icon" class="week-icon"></div>
-              <div id="day-5-min-temp"></div>
-              <div id="day-5-max-temp"></div>
-            </div>
-          </div>
-        </div>
+        <div class="week" id="forecast"></div>
 
         <!-- Footer -->
-
         <div class="footer">
           <a href="https://github.com/TashaStinger/weather-app" target="_blank"
             >Open-source code</a
