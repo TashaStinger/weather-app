@@ -56,9 +56,9 @@ body {
     font-size: 14px;
     list-style: none;
     padding: 5px 0 0;
-    color: #005689;
+    color:#005689;
     font-style: italic;
-    opacity: 95%;
+    /* opacity: 95%; */
 }
 
 #weather-description {
