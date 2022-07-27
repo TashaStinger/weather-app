@@ -152,6 +152,7 @@ function getIcon(weatherDescription) {
         Clear: '<i class="fa-solid fa-sun"></i>',
         Clouds: '<i class="fa-solid fa-cloud-sun"></i>',
 
+        Mist: '<i class="fa-solid fa-smog"></i>',
         Smoke: '<i class="fa-solid fa-smog"></i>',
         Haze: '<i class="fa-solid fa-smog"></i>',
         Dust: '<i class="fa-solid fa-smog"></i>',
